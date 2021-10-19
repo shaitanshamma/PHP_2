@@ -2,16 +2,16 @@
 
 namespace app\models;
 
-class Users extends Model
+class Basket extends Model
 {
     public $id;
-    public $login;
-    public $pass;
+    public $goods_id;
+    public $session_id;
 
 
     public function getTableName()
     {
-        return 'users';
+        return 'basket';
     }
 
 }

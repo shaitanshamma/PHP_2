@@ -10,12 +10,9 @@ class Products extends Model
     public $description;
     public $price;
 
-
-
-    public function getTableName() {
+    public function getTableName()
+    {
         return 'products';
     }
-
-
 
 }

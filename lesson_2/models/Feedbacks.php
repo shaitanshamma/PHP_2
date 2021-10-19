@@ -2,16 +2,16 @@
 
 namespace app\models;
 
-class Users extends Model
+class Feedbacks extends Model
 {
     public $id;
-    public $login;
-    public $pass;
+    public $author;
+    public $text;
 
 
     public function getTableName()
     {
-        return 'users';
+        return 'feedback';
     }
 
 }
