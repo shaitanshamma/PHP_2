@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Cart extends Model
+class Cart extends DbModel
 {
     public $id;
     public $prod_id;
@@ -18,7 +18,7 @@ class Cart extends Model
     }
 
 
-    public function getTableName()
+    public static function getTableName()
     {
         return 'cart';
     }

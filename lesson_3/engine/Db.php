@@ -19,7 +19,8 @@ class Db
 
     private $connection = null; //PDO
 
-    private function getConnection() {
+    private function getConnection()
+    {
         if (is_null($this->connection)) {
             $this->connection = new \PDO($this->prepareDsnString(),
                 $this->config['login'],
@@ -27,29 +28,30 @@ class Db
             $this->connection->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
         return $this->connection;
-     }
+    }
 
-     private function prepareDsnString() {
+    private function prepareDsnString()
+    {
         return sprintf("%s:host=%s;dbname=%s;charset=%s",
             $this->config['driver'],
             $this->config['host'],
             $this->config['database'],
             $this->config['charset']
         );
-     }
+    }
 
-     private function query($sql, $params) {
+    private function query($sql, $params)
+    {
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->execute($params);
         return $stmt;
-     }
+    }
 
-     public function lastInsertId() {
-         return $this->getConnection()->lastInsertId();
-     }
+    public function lastInsertId()
+    {
+        return $this->getConnection()->lastInsertId();
+    }
 
-
-    //SELECT from users where id = '1' LIMIT 0, 1
     public function queryOne($sql, $params = [])
     {
         return $this->query($sql, $params)->fetch();
@@ -59,7 +61,7 @@ class Db
     {
         $stmt = $this->query($sql, $params);
 
-        $stmt->setFetchMode(\PDO::FETCH_CLASS| \PDO::FETCH_PROPS_LATE, $class);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
         return $stmt->fetch();
     }
 
@@ -69,15 +71,25 @@ class Db
         return $this->query($sql, $params)->fetchAll();
     }
 
-    public function queryAllObj($sql, $params = [], $class)
+    public function queryAllObj($sql, $class, $params = [])
     {
         $stmt = $this->query($sql, $params);
 
-        $stmt->setFetchMode(\PDO::FETCH_CLASS| \PDO::FETCH_PROPS_LATE, $class);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
         return $stmt->fetchAll();
     }
 
-    public function execute($sql, $params = []) {
+    public function execute($sql, $params = [])
+    {
         return $this->query($sql, $params)->rowCount();
+    }
+
+    public function querylimit($sql, $limit)
+    {
+        //LIMIT 0, $limit
+        $stmt = $this->getConnection()->prepare($sql);
+        $stmt->bindValue(1, $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt;
     }
 }
