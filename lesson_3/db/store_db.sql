@@ -113,7 +113,7 @@ CREATE TABLE `products` (
   `description` mediumtext NOT NULL,
   `price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,7 +122,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'feature_1.png','Рубашка','Стильно, модно, молодежно!',123.22),(2,'feature_2.png','Штанцы','А может юбка',23.22),(3,'feature_3.png','Бриджи','Белый и стильные!',99.99),(4,'feature_4.png','Рубашка','В горошек, что может быть лучше!',123.44),(5,'feature_5.png','Пинджак','С карманами',223.22),(17,'update_img','w1233we','nice boots',32.00);
+INSERT INTO `products` VALUES (1,'feature_1.png','Рубашка','Стильно, модно, молодежно!',123.22),(2,'feature_2.png','Штанцы','А может юбка',23.22),(3,'feature_3.png','Бриджи','Белый и стильные!',99.99),(4,'feature_4.png','Рубашка','В горошек, что может быть лучше!',123.44),(5,'feature_5.png','Пинджак','С карманами',223.22),(17,'1.png','shoes','nice boots',32.00),(18,'1.png','shoes','nice boots',32.00),(19,'1.png','shoes','nice boots',32.00),(20,'1.png','NEW','nice boots',77777.00),(21,'1.png','shoes','nice boots',32.00);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-24 11:07:33
+-- Dump completed on 2021-10-27 20:18:57

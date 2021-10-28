@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Order extends Model
+class Order extends DbModel
 {
     public $id;
     public $name;
@@ -19,7 +19,7 @@ class Order extends Model
         $this->session_uid = $session_uid;
     }
 
-    public function getTableName()
+    public static function getTableName()
     {
         return 'orders';
     }
