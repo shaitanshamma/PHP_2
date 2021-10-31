@@ -20,4 +20,11 @@ abstract class Model implements IModel
         return $this->$name;
     }
 
+    public function __isset($name)
+    {
+        if ($this->$name){
+          return $this->$name;
+        }
+    }
+
 }

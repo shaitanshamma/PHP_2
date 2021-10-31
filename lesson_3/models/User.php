@@ -2,7 +2,9 @@
 
 namespace app\models;
 
-class User extends Model
+use app\engine\Db;
+
+class User extends DbModel
 {
     public $id;
     public $login;
@@ -16,10 +18,22 @@ class User extends Model
         $this->role = $role;
     }
 
+    public static function isAuth() {
+        return isset($_SESSION['login']);
+    }
 
-    public function getTableName()
+    public static function getNameW() {
+        return $_SESSION['login'];
+    }
+
+    public static function getTableName()
     {
         return 'users';
+    }
+
+    public static function getUserByName($name)
+    {
+        return $name;
     }
 
 }

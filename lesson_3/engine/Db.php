@@ -92,4 +92,9 @@ class Db
         $stmt->execute();
         return $stmt;
     }
+
+    public function getWhere($sql, $params = [])
+    {
+        return $this->query($sql, $params)->rowCount();
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Comment extends Model
+class Comment extends DbModel
 {
     public $id;
     public $prod_id;
@@ -18,7 +18,7 @@ class Comment extends Model
     }
 
 
-    public function getTableName()
+    public static function getTableName()
     {
         return 'comments';
     }
