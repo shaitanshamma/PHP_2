@@ -18,9 +18,11 @@ abstract class DbModel extends Model
 
     }
 
-    public static function getWhere($name, $value)
+    public static function getName($name)
     {
-
+        $tableName = static::getTableName();
+        $sql = "SELECT * FROM {$tableName} WHERE `login` = :name";
+        return Db::getInstance()->queryOneObject($sql, ["name" => $name], static::class);
     }
 
     public function insert()

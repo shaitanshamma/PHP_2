@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-class Role extends Model
+class Role extends DbModel
 {
     public $id;
     public $title;
@@ -14,7 +14,7 @@ class Role extends Model
     }
 
 
-    public function getTableName()
+    public static function getTableName()
     {
         return 'roles';
     }

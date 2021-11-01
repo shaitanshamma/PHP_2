@@ -1,0 +1,18 @@
+
+{%if auth %}
+    <h4>Добро пожаловать {{ name }}</h4>
+    <a href="/?c=auth&a=logout">Выход</a><br>
+{% else %}
+<form class="order_form" method="post" action="/?c=auth&a=log">
+    <h4>Enter to you profile</h4>
+    <label>
+        <input type="text" placeholder="Login" name="login">
+    </label>
+    <label>
+        <input type="password" placeholder="Password" name="pass">
+    </label>
+    <div class="">
+        <button class="get_quote" type="submit" name="ok">SUBMIT</button>
+    </div>
+</form>
+{% endif %}

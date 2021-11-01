@@ -1,0 +1,12 @@
+<h2>Заказ</h2>
+
+{% for item in cart %}
+    <div>
+        <h3>name: {{ item.name }}</h3>
+        <p>uid: {{ item.session_uid}}</p>
+        <p>quant: {{ item.quant}}</p>
+        <p>prod_id: {{ item.prod_id}}</p>
+    </div>
+{% endfor %}
+
+<a href="/?c=cart&a=cart&page={{ page }}">Еще</a>

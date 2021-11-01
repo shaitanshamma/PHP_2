@@ -1,0 +1,10 @@
+{% extends "/layouts/main.twig" %}
+
+{% block menu %}
+{{ parent() }}
+<a href="/">Главная</a>
+<a href="/?c=product&a=catalog">Каталог</a>
+<a href="/?c=cart&a=cart">Корзина</a>
+<a href="/?c=order&a=order">Заказ</a>
+<a href="/?c=auth&a=login">Вход</a><br>
+{% endblock %}
