@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\engine\Db;
+
 class Cart extends DbModel
 {
     public $id;
@@ -21,6 +23,11 @@ class Cart extends DbModel
     public static function getTableName()
     {
         return 'cart';
+    }
+
+    public static function getCart($session_uid) {
+        $sql = "SELECT cart.id as cart_id, products.id as prod_id, products.title, products.description, products.price, cart.quant FROM `cart`,`products` WHERE `session_uid` = :session_uid AND cart.prod_id = products.id";
+        return Db::getInstance()->queryAll($sql, ['session_uid' => $session_uid]);
     }
 
 }

@@ -22,18 +22,13 @@ class User extends DbModel
         return isset($_SESSION['login']);
     }
 
-    public static function getNameW() {
+    public static function getUserName() {
         return $_SESSION['login'];
     }
 
     public static function getTableName()
     {
         return 'users';
-    }
-
-    public static function getUserByName($name)
-    {
-        return $name;
     }
 
 }

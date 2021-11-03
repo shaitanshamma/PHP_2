@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\engine\TwigRender;
 use app\interfaces\IRenderer;
+use app\models\Cart;
 use app\models\User;
 
 abstract class Controller
@@ -34,11 +35,15 @@ abstract class Controller
     }
 
     public function render($template, $params = []) {
+        $session_uid = session_id();
         if ($this->useLayout) {
             return $this->renderTemplate('layouts/' . $this->layout, [
-                'menu' => $this->render->renderTemplate('menu', $params),
+                'menu' => $this->render->renderTemplate('menu', [
+                    'auth' => User::isAuth(),
+                    'name' => User::getUserName(),
+                    'count'=>Cart::getCountWhere('session_uid', $session_uid),
+                ]),
                 'content' => $this->render->renderTemplate($template, $params),
-                'auth' => User::isAuth(),
             ]);
         } else {
             return $this->renderTemplate($template, $params);

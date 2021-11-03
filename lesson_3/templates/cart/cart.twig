@@ -1,12 +1,30 @@
 <h2>Заказ</h2>
 
 {% for item in cart %}
-    <div>
-        <h3>name: {{ item.name }}</h3>
-        <p>uid: {{ item.session_uid}}</p>
+    <div id="{{ item.prod_id }}">
+        <h3>Товар: {{ item.title }}</h3>
+        <p>описание: {{ item.description}}</p>
         <p>quant: {{ item.quant}}</p>
-        <p>prod_id: {{ item.prod_id}}</p>
+        <p>цена: {{ item.price}}</p>
+        <button class="remove" data-id="{{ item.prod_id }}">Удалить</button>
     </div>
 {% endfor %}
 
-<a href="/?c=cart&a=cart&page={{ page }}">Еще</a>
+<a href="/cart/cart/?page={{ page }}">Еще</a>
+
+<script>
+    let buttons = document.querySelectorAll('.remove');
+    buttons.forEach((elem) => {
+        elem.addEventListener('click', () => {
+            let id = elem.getAttribute('data-id');
+            (
+                async () => {
+                    const response = await fetch('/cart/remove/?id=' + id);
+                    const answer  = await response.json();
+                    document.getElementById('count').innerText = answer.count;
+                    document.getElementById(id).remove();
+                }
+            )();
+        })
+    })
+</script>

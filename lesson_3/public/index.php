@@ -1,6 +1,7 @@
 <?php
 session_start();
-use app\engine\{Autoload, Render, TwigRender};
+
+use app\engine\{Autoload, Render, Request, TwigRender};
 use app\models\{Comment, Product, User};
 
 //Подключаем автозагрузчик и конфиг
@@ -12,8 +13,23 @@ require_once "../vendor/autoload.php";
 spl_autoload_register([new Autoload(), 'loadClass']);
 /** @var Product $product */
 
-$controllerName = $_GET['c'] ?? 'product';
-$actionName = $_GET['a'] ?? null;
+//$controllerName = $_GET['c'] ?? 'product';
+//$actionName = $_GET['a'] ?? null;
+
+//$requestString = $_SERVER['REQUEST_URI'];
+//$method = $_SERVER['REQUEST_METHOD'];
+//
+//$url = explode('/', $requestString);
+//
+//$controllerName = $url[1]?: 'product';
+//$actionName = $url[2];
+//
+//$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
+
+$request = new Request();
+
+$controllerName = $request->getControllerName() ?: 'product';
+$actionName = $request->getActionName();
 
 $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 

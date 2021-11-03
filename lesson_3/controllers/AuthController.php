@@ -2,10 +2,19 @@
 
 namespace app\controllers;
 
+use app\engine\Request;
 use app\models\User;
 
 class AuthController extends Controller
 {
+    protected $request;
+
+    public function __construct()
+    {
+        $this->request = new Request();
+    }
+
+
     public function actionLogin()
     {
         $this->render('login', [
@@ -13,23 +22,28 @@ class AuthController extends Controller
         ]);
 
     }
-    public function actionLog(){
+
+    public function actionLog()
+    {
         if (isset($_POST['ok'])) {
-            $login = strip_tags($_POST['login']);
-            $pass = strip_tags($_POST['pass']);
+            $login = $this->request->getLogin();
+            $pass = $this->request->getPass();
             $user = User::getName($login);
             if (password_verify($pass, $user->password)) {
                 $_SESSION['login'] = $login;
-                $this->render('login', [
-                    'name' => $_SESSION['login'],
-                    'auth' => User::isAuth(),
-                ]);
+                header("Location:" . $_SERVER['HTTP_REFERER']);
+                die();
+            } else {
+                die("Не верный логин пароль");
             }
         }
     }
+
     public function actionLogout()
     {
+        session_regenerate_id();
         session_destroy();
-        header("Location: /");
+        header("Location:" . $_SERVER['HTTP_REFERER']);
+        die();
     }
 }
