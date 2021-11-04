@@ -76,11 +76,14 @@ abstract class DbModel extends Model
         ($this->id == null) ? $this->insert() : $this->update();
     }
 
-    public function delete()
+    public function delete($id)
     {
+        $session_uid = session_id();
         $tableName = static::getTableName();
-        $sql = "DELETE FROM {$tableName} WHERE id = :id";
-        return Db::getInstance()->execute($sql, ['id' => $this->id]);
+        $sql = "DELETE FROM {$tableName} WHERE `prod_id` = :id AND `session_uid` = '{$session_uid}'";
+//        var_dump($sql, $id);
+//        die();
+        return Db::getInstance()->execute($sql, ['id' => $id]);
     }
 
     public static function getOne($id)
@@ -95,5 +98,12 @@ abstract class DbModel extends Model
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName}";
         return Db::getInstance()->queryAll($sql);
+    }
+
+    public static function getCountWhere($name, $value)
+    {
+        $tableName = static::getTableName();
+        $sql = "SELECT count(id) as count FROM {$tableName} WHERE {$name} = :value";
+        return Db::getInstance()->queryOne($sql, ['value' => $value])['count'];
     }
 }

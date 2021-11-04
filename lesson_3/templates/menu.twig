@@ -1,10 +1,32 @@
 {% extends "/layouts/main.twig" %}
 
 {% block menu %}
+
+    {%if auth %}
+        <h4>Добро пожаловать {{ name }} <a href="/auth/logout">Выход</a><br></h4>
+    {% else %}
+        <form class="order_form" method="post" action="/auth/log">
+            <h4>Enter to you profile</h4>
+            <label>
+                <input type="text" placeholder="Login" name="login">
+            </label>
+            <label>
+                <input type="password" placeholder="Password" name="pass">
+            </label>
+            <div class="">
+                <button class="get_quote" type="submit" name="ok">SUBMIT</button>
+            </div>
+        </form>
+        <br>
+    {% endif %}
+
 {{ parent() }}
 <a href="/">Главная</a>
-<a href="/?c=product&a=catalog">Каталог</a>
-<a href="/?c=cart&a=cart">Корзина</a>
-<a href="/?c=order&a=order">Заказ</a>
-<a href="/?c=auth&a=login">Вход</a><br>
+<a href="/product/catalog">Каталог</a>
+<a href="/cart/cart">Корзина(<span id="count">{{ count }}</span>)</a><br>
+<a href="/order/order">Заказ</a>
+    {%if auth==false %}
+<a href="/auth/login">Вход</a><br>
+    {% endif %}
+    <br>
 {% endblock %}
