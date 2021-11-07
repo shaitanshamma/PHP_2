@@ -2,6 +2,8 @@
 
 namespace app\engine;
 
+
+
 class Request
 {
     protected $requestString;
@@ -81,6 +83,5 @@ class Request
     {
         return $this->pass;
     }
-
 
 }

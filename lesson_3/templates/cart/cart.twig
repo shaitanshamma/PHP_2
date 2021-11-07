@@ -1,16 +1,38 @@
-<h2>Заказ</h2>
+<h2>Корзина</h2>
+{% if message =="" %}
+    {% for item in cart %}
+        <div id="{{ item.cart_id }}">
+            <h3>Товар: {{ item.title }}</h3>
+            <p>описание: {{ item.description }}</p>
+            <p>quant: {{ item.quant }}</p>
+            <p>цена: {{ item.price }}</p>
+            <button class="remove" data-id="{{ item.cart_id }}">Удалить</button>
+        </div>
+    {% endfor %}
 
-{% for item in cart %}
-    <div id="{{ item.prod_id }}">
-        <h3>Товар: {{ item.title }}</h3>
-        <p>описание: {{ item.description}}</p>
-        <p>quant: {{ item.quant}}</p>
-        <p>цена: {{ item.price}}</p>
-        <button class="remove" data-id="{{ item.prod_id }}">Удалить</button>
-    </div>
-{% endfor %}
+    <a href="/cart/cart/?page={{ page }}">Еще</a>
 
-<a href="/cart/cart/?page={{ page }}">Еще</a>
+    <form method="post" class="order_form" action="/order/confirm">
+        <h4>Confirm order</h4>
+        <label>
+            <input type="text" placeholder="Name" name="name">
+        </label>
+        <label>
+            <input type="number" placeholder="Phone" name="phone">
+        </label>
+        <label>
+            <input type="text" placeholder="Phone" name="total" hidden value="{{ total }}">
+        </label>
+        <div class="total_price">
+            <h4>GRAND TOTAL $ <span id="summ">{{ total }}</span></h4>
+            <div class="proceed_button">
+                <button class="proceed" type="submit">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+    </form>
+{% else %}
+    <h4>{{ message }}</h4>
+{% endif %}
 
 <script>
     let buttons = document.querySelectorAll('.remove');
@@ -20,8 +42,9 @@
             (
                 async () => {
                     const response = await fetch('/cart/remove/?id=' + id);
-                    const answer  = await response.json();
+                    const answer = await response.json();
                     document.getElementById('count').innerText = answer.count;
+                    document.getElementById('summ').innerText = answer.summ;
                     document.getElementById(id).remove();
                 }
             )();

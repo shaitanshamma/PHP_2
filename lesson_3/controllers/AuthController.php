@@ -3,10 +3,11 @@
 namespace app\controllers;
 
 use app\engine\Request;
-use app\models\User;
+use app\models\repositories\UserRepository;
 
 class AuthController extends Controller
 {
+
     protected $request;
 
     public function __construct()
@@ -18,7 +19,7 @@ class AuthController extends Controller
     public function actionLogin()
     {
         $this->render('login', [
-            'auth' => User::isAuth()
+            'auth' => (new UserRepository())->isAuth()
         ]);
 
     }
@@ -28,9 +29,8 @@ class AuthController extends Controller
         if (isset($_POST['ok'])) {
             $login = $this->request->getLogin();
             $pass = $this->request->getPass();
-            $user = User::getName($login);
-            if (password_verify($pass, $user->password)) {
-                $_SESSION['login'] = $login;
+
+            if ((new UserRepository())->auth($login, $pass)) {
                 header("Location:" . $_SERVER['HTTP_REFERER']);
                 die();
             } else {
@@ -46,4 +46,5 @@ class AuthController extends Controller
         header("Location:" . $_SERVER['HTTP_REFERER']);
         die();
     }
+
 }

@@ -1,51 +1,72 @@
 <?php
 session_start();
 
-use app\engine\{Autoload, Render, Request, TwigRender};
-use app\models\{Comment, Product, User};
+use app\engine\{Autoload, Db, Render, Request, RequestException, TwigRender};
+use app\models\{Product, User};
 
 //Подключаем автозагрузчик и конфиг
 include "../config/config.php";
-include "../engine/Autoload.php";
-require_once "../vendor/autoload.php";
+//include "../engine/Autoload.php";
+require_once '../vendor/autoload.php';
 
 //регистрируем автозагрузчик
-spl_autoload_register([new Autoload(), 'loadClass']);
-/** @var Product $product */
+//spl_autoload_register([new Autoload(), 'loadClass']);
 
-//$controllerName = $_GET['c'] ?? 'product';
-//$actionName = $_GET['a'] ?? null;
+try {
+    $request = new Request();
 
-//$requestString = $_SERVER['REQUEST_URI'];
-//$method = $_SERVER['REQUEST_METHOD'];
-//
-//$url = explode('/', $requestString);
-//
-//$controllerName = $url[1]?: 'product';
-//$actionName = $url[2];
-//
-//$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
+    $controllerName = $request->getControllerName() ?: 'product';
+    $actionName = $request->getActionName();
 
-$request = new Request();
+    $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 
-$controllerName = $request->getControllerName() ?: 'product';
-$actionName = $request->getActionName();
+    if (class_exists($controllerClass)) {
+        $controller = new $controllerClass(new TwigRender());
+        $controller->runAction($actionName);
+    } else {
+        Die("404");
+    }
 
-$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
-
-if (class_exists($controllerClass)) {
-    $controller = new $controllerClass(new TwigRender());
-    $controller->runAction($actionName);
-} else {
-    Die("404");
+} catch (\PDOException $e) {
+    var_dump($e);
+} catch (\Exception $e) {
+    var_dump($e->getTrace());
 }
 
-//
-//$product = Product::getOne(20);
-//$product->price = 77777;
-//$product->title = "NEW";
-//$product->save();
+
+
+
+
+
+
+
 die();
+
+
+
+/** @var Product $product */
+
+
+$product = Product::getOne(1);
+$product->price = 23; //SET price = 23
+$product->name = 'azaza'; //SET price = 23
+$product->save();
+
+
+
+
+
+$product = Product::getOne(8);
+var_dump($product);
+
+
+$product = Product::getOne(8);
+$product->price = 23; //SET price = 23
+$product->save();
+
+$product = new Product("Чай", "Цейлонский", 54);
+$product->save();
+var_dump($product);
 
 
 $product = Product::getOne(7);
@@ -58,4 +79,9 @@ var_dump($product->getAll());
 $user = new User();
 
 var_dump($user->getOne(1));
+
+
+
+//var_dump($product);
+
 
