@@ -5,6 +5,8 @@ namespace app\controllers;
 use app\engine\TwigRender;
 use app\interfaces\IRenderer;
 use app\models\Cart;
+use app\models\repositories\CartRepository;
+use app\models\repositories\UserRepository;
 use app\models\User;
 
 abstract class Controller
@@ -16,10 +18,14 @@ abstract class Controller
 
     private $render;
 
+//    private  $userRepository;
+//    private  $cartRepository;
 
     public function __construct(IRenderer $render)
     {
         $this->render = $render;
+//        $this->cartRepository = new CartRepository();
+//        $this->userRepository = new UserRepository();
     }
 
 
@@ -37,16 +43,16 @@ abstract class Controller
     public function render($template, $params = []) {
         $session_uid = session_id();
         if ($this->useLayout) {
-            return $this->renderTemplate('layouts/' . $this->layout, [
+            return $this->render->renderTemplate('layouts/' . $this->layout, [
                 'menu' => $this->render->renderTemplate('menu', [
-                    'auth' => User::isAuth(),
-                    'name' => User::getUserName(),
-                    'count'=>Cart::getCountWhere('session_uid', $session_uid),
+                    'auth' => (new UserRepository())->isAuth(),
+                    'name' => (new UserRepository())->getName(),
+                    'count'=>(new CartRepository())->getCountWhere('session_uid', $session_uid),
                 ]),
                 'content' => $this->render->renderTemplate($template, $params),
             ]);
         } else {
-            return $this->renderTemplate($template, $params);
+            return $this->render->renderTemplate($template, $params);
         }
 
     }
