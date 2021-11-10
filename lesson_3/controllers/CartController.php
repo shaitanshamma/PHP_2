@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\engine\App;
 use app\engine\Request;
 
 use app\models\entity\Cart;
@@ -14,8 +15,8 @@ class CartController extends Controller
     {
         $page = $_GET['page'] ?? 0;
         $session_uid = session_id();
-        $cart = (new CartRepository())->getCart($session_uid);
-        $summ = (new CartRepository())->getTotal();
+        $cart = App::call()->cartRepository->getCart($session_uid);
+        $summ = App::call()->cartRepository->getTotal();
         $summ = $summ[0]['total'];
 
         echo $this->render('cart/cart', [
@@ -28,16 +29,16 @@ class CartController extends Controller
 
     public function actionAdd()
     {
-        $prod_id = (new Request())->getParams()['id'];
+        $prod_id = App::call()->request->getParams()['id'];
         $session_uid = session_id();
 
         $cart = new Cart($prod_id, 1, $session_uid);
 
-        (new CartRepository())->save($cart);
+        App::call()->cartRepository->save($cart);
 
         $response = [
             'status' => 'ok',
-            'count' => (new CartRepository())->getCountWhere('session_uid', $session_uid)
+            'count' => App::call()->cartRepository->getCountWhere('session_uid', $session_uid)
         ];
         echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         die();
@@ -45,21 +46,21 @@ class CartController extends Controller
 
     public function actionRemove()
     {
-        $id = (new Request())->getParams()['id'];
+        $id = App::call()->request->getParams()['id'];
         $session_uid = session_id();
         $status = 'ok';
-        $cart = (new CartRepository())->getOne($id);
+        $cart = App::call()->cartRepository->getOne($id);
 
         if ($session_uid == $cart->session_uid) {
-            (new CartRepository())->delete($cart);
+            App::call()->cartRepository->delete($cart);
         } else {
             $status = 'error';
         }
-        $summ = (new CartRepository())->getTotal();
+        $summ = App::call()->cartRepository->getTotal();
         $summ = $summ[0]['total'];
         $response = [
             'status' => $status,
-            'count' => (new CartRepository())->getCountWhere('session_uid', $session_uid),
+            'count' => App::call()->cartRepository->getCountWhere('session_uid', $session_uid),
             'summ' => $summ,
         ];
         echo json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

@@ -11,7 +11,7 @@
     {% endfor %}
 
     <a href="/cart/cart/?page={{ page }}">Еще</a>
-
+<div class="order_and_price">
     <form method="post" class="order_form" action="/order/confirm">
         <h4>Confirm order</h4>
         <label>
@@ -30,6 +30,7 @@
             </div>
         </div>
     </form>
+</div>
 {% else %}
     <h4>{{ message }}</h4>
 {% endif %}

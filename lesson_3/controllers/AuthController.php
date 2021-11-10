@@ -2,40 +2,40 @@
 
 namespace app\controllers;
 
+use app\engine\App;
 use app\engine\Request;
 use app\models\repositories\UserRepository;
 
 class AuthController extends Controller
 {
-
-    protected $request;
-
-    public function __construct()
-    {
-        $this->request = new Request();
-    }
+//
+//    protected $request;
+//
+//    public function __construct()
+//    {
+//        $this->request = new Request();
+//    }
 
 
     public function actionLogin()
     {
         $this->render('login', [
-            'auth' => (new UserRepository())->isAuth()
+//            'auth' => (new UserRepository())->isAuth()
+            'auth' => App::call()->usersRepository->isAuth()
         ]);
 
     }
 
     public function actionLog()
     {
-        if (isset($_POST['ok'])) {
-            $login = $this->request->getLogin();
-            $pass = $this->request->getPass();
+        $login = App::call()->request->getParams()['login'];
+        $pass = App::call()->request->getParams()['pass'];
 
-            if ((new UserRepository())->auth($login, $pass)) {
-                header("Location:" . $_SERVER['HTTP_REFERER']);
-                die();
-            } else {
-                die("Не верный логин пароль");
-            }
+        if (App::call()->usersRepository->auth($login, $pass)) {
+            header("Location:" . $_SERVER['HTTP_REFERER']);
+            die();
+        } else {
+            die("Не верный логин пароль");
         }
     }
 
