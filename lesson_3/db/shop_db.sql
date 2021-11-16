@@ -30,7 +30,7 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`id`),
   KEY `prod_id_from_cart_idx` (`prod_id`),
   CONSTRAINT `prod_id_from_cart` FOREIGN KEY (`prod_id`) REFERENCES `products` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=296 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (184,1,1,'t83blffj2gim2lvgjn9h01cl8s3rtrog'),(201,1,1,'6lvnmaagjgjklc8kne9q2qu5fcssm9ls'),(202,2,1,'6lvnmaagjgjklc8kne9q2qu5fcssm9ls'),(203,2,1,'9na70lqftjkkekh4j39f31m9c6k4i1jn'),(204,1,1,'9na70lqftjkkekh4j39f31m9c6k4i1jn'),(205,1,2,'uqmdpqvs6baj5q6lof97p5rvoul6c0ui'),(206,1,2,'m3mjsqb9420noahevjasp3c4fpe2l9ki'),(207,1,1,'q5b6kpbkvc227g7e5ufgp4u1g82j2jkj'),(208,1,1,'lgotf3lc8cutji98vi2npum15bsc183o'),(209,1,1,'0fb9hbo1iiip2vgg4ci9v2iq1os7s9f9'),(210,2,1,'1cajsdn58g9euk7j3dpc2qj0onbc8pks'),(211,3,1,'1cajsdn58g9euk7j3dpc2qj0onbc8pks'),(212,1,1,'k7609mucjhnop49dok71gqgn3fs0fks6'),(213,2,1,'k7609mucjhnop49dok71gqgn3fs0fks6');
+INSERT INTO `cart` VALUES (184,1,1,'t83blffj2gim2lvgjn9h01cl8s3rtrog'),(201,1,1,'6lvnmaagjgjklc8kne9q2qu5fcssm9ls'),(202,2,1,'6lvnmaagjgjklc8kne9q2qu5fcssm9ls'),(203,2,1,'9na70lqftjkkekh4j39f31m9c6k4i1jn'),(204,1,1,'9na70lqftjkkekh4j39f31m9c6k4i1jn'),(205,1,2,'uqmdpqvs6baj5q6lof97p5rvoul6c0ui'),(206,1,2,'m3mjsqb9420noahevjasp3c4fpe2l9ki'),(207,1,1,'q5b6kpbkvc227g7e5ufgp4u1g82j2jkj'),(208,1,1,'lgotf3lc8cutji98vi2npum15bsc183o'),(209,1,1,'0fb9hbo1iiip2vgg4ci9v2iq1os7s9f9'),(210,2,1,'1cajsdn58g9euk7j3dpc2qj0onbc8pks'),(211,3,1,'1cajsdn58g9euk7j3dpc2qj0onbc8pks'),(212,1,1,'k7609mucjhnop49dok71gqgn3fs0fks6'),(213,2,1,'k7609mucjhnop49dok71gqgn3fs0fks6'),(214,2,1,'mpm6ni5vgsmnveg04sq09j1psfnjc4ms'),(215,1,1,'mpm6ni5vgsmnveg04sq09j1psfnjc4ms'),(216,1,1,'mpm6ni5vgsmnveg04sq09j1psfnjc4ms'),(217,1,1,'mpm6ni5vgsmnveg04sq09j1psfnjc4ms'),(218,1,1,'mpm6ni5vgsmnveg04sq09j1psfnjc4ms'),(219,1,1,'mpm6ni5vgsmnveg04sq09j1psfnjc4ms'),(220,1,1,'mpm6ni5vgsmnveg04sq09j1psfnjc4ms'),(221,1,1,'l1m2pejaa2l20ogjva6qc0894br5evgi'),(252,1,1,'r6ubirtp0qa50am9bjmmql4no94lf4kb'),(253,3,1,'sr1r552oq88nhfgd43mc0ucmd3s8v4it'),(254,4,1,'sr1r552oq88nhfgd43mc0ucmd3s8v4it'),(255,1,1,'sr1r552oq88nhfgd43mc0ucmd3s8v4it'),(278,1,1,'bk26gn8hs0mqbsehg9j80lm2l6og7q14'),(279,1,1,'fd8slch68hq6epbsc5p6anjvv2tt2ucg'),(280,2,1,'fd8slch68hq6epbsc5p6anjvv2tt2ucg'),(281,2,1,'fd8slch68hq6epbsc5p6anjvv2tt2ucg'),(282,1,1,'fd8slch68hq6epbsc5p6anjvv2tt2ucg'),(284,1,1,'o3i2v9iobtgodn18bmi0mqemgpp5pcd6'),(285,2,1,'o3i2v9iobtgodn18bmi0mqemgpp5pcd6'),(286,1,1,'gu4emun7ta06mfbedtviqlpua643b67v'),(287,1,1,'b8ripp5j25nq48u054ri5f7hksn9l6f2'),(288,2,1,'b8ripp5j25nq48u054ri5f7hksn9l6f2'),(289,1,1,'ikcqbrpirovl9qdv46b5t1eaqjagn6l0'),(290,2,1,'ikcqbrpirovl9qdv46b5t1eaqjagn6l0'),(292,1,1,'1ej2qrkrr9min02902rbua4gcuil6ihf'),(293,1,1,'pt4phfcqlg4k4mskflfknfihcno0ce9d'),(294,2,1,'pt4phfcqlg4k4mskflfknfihcno0ce9d'),(295,3,1,'pt4phfcqlg4k4mskflfknfihcno0ce9d');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ CREATE TABLE `orders` (
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `total` decimal(20,2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (6,'k7609mucjhnop49dok71gqgn3fs0fks6','12','122','2021-10-06 17:02:10',146.44);
+INSERT INTO `orders` VALUES (6,'k7609mucjhnop49dok71gqgn3fs0fks6','12','122','2021-10-06 17:02:10',146.44),(8,'bk26gn8hs0mqbsehg9j80lm2l6og7q14','122','1333','2021-11-06 10:32:57',123.22),(9,'bk26gn8hs0mqbsehg9j80lm2l6og7q14','12212','33333','2021-11-06 10:34:28',123.22),(10,'bk26gn8hs0mqbsehg9j80lm2l6og7q14','12212','33333','2021-11-06 10:34:52',123.22),(11,'fd8slch68hq6epbsc5p6anjvv2tt2ucg','12212','33311','2021-11-06 10:35:14',292.88),(12,'o3i2v9iobtgodn18bmi0mqemgpp5pcd6','qwwqw','1122','2021-11-06 10:36:17',146.44),(13,'gu4emun7ta06mfbedtviqlpua643b67v','1212','3133','2021-11-06 10:47:57',123.22),(14,'b8ripp5j25nq48u054ri5f7hksn9l6f2','1221','1212','2021-11-06 10:59:37',146.44),(15,'ikcqbrpirovl9qdv46b5t1eaqjagn6l0','2223','2223','2021-11-07 17:07:25',146.44),(16,'1ej2qrkrr9min02902rbua4gcuil6ihf','122','33','2021-11-07 17:10:05',123.22),(17,'1ej2qrkrr9min02902rbua4gcuil6ihf','','','2021-11-09 14:15:32',123.22),(18,'pt4phfcqlg4k4mskflfknfihcno0ce9d','12333','444','2021-11-10 16:12:51',246.43);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -195,4 +195,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-27 20:18:57
+-- Dump completed on 2021-11-10 19:21:29

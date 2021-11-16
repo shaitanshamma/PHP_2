@@ -1,11 +1,12 @@
 <h2>Заказ</h2>
 
 {% for item in order %}
-    <div>
-        <h3>name: {{ item.name }}</h3>
-        <p>uid: {{ item.session_uid }}</p>
-        <p>phone: {{ item.phone }}</p>
-        <p>date: {{ item.date }}</p>
-        <p>price: {{ item.total }}</p>
-    </div>
+    <a href="/order/custom/?uid={{ item.id }}">
+        <div>
+            <h3>name: {{ item.name }}</h3>
+            <p>phone: {{ item.phone }}</p>
+            <p>date: {{ item.date }}</p>
+            <p>price: {{ item.total }}</p>
+        </div>
+    </a>
 {% endfor %}

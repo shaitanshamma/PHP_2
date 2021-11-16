@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\engine\App;
 use app\engine\Request;
 use app\models\entity\Order;
 use app\models\repositories\OrderRepository;
@@ -12,18 +13,17 @@ class OrderController extends Controller
 
     public function actionOrder()
     {
-        $userRepository = new UserRepository();
         $session_uid = session_id();
         $page = $_GET['page'] ?? 0;
 
-        if ($userRepository->getName()==='admin'){
-            $order = (new OrderRepository())->getAll();
+        if (App::call()->usersRepository->getName() === 'admin') {
+            $order = App::call()->orderRepository->getAll();
             echo $this->render('order/order', [
                 'order' => $order,
                 'page' => ++$page
             ]);
-        }else{
-            $order = (new OrderRepository())->getOneWhere("session_uid", $session_uid);
+        } else {
+            $order = App::call()->orderRepository->getOneWhere("session_uid", $session_uid);
             echo $this->render('order/order', [
                 'order' => $order,
                 'page' => ++$page
@@ -33,17 +33,26 @@ class OrderController extends Controller
 
     public function actionConfirm()
     {
-        $request = new Request();
         $session_uid = session_id();
-        $name = $request->getParams()['name'];
-        $phone = $request->getParams()['phone'];
-        $total = (float)$request->getParams()['total'];
+        $name = App::call()->request->getParams()['name'];
+        $phone = App::call()->request->getParams()['phone'];
+        $total = (float)App::call()->request->getParams()['total'];
         $order = new Order($name, $phone, $session_uid, $total);
-        (new OrderRepository())->save($order);
+        App::call()->orderRepository->save($order);
         session_regenerate_id();
         echo $this->render('cart/cart', [
             'message' => "Заказ успешно создан!",
         ]);
     }
 
+    public function actionCustom()
+    {
+        $id= App::call()->request->getParams()['uid'];
+
+        $order =  App::call()->orderRepository->getOneWhere("id", $id);
+
+        echo $this->render('order/customOrder', [
+            'order' => $order,
+        ]);
+    }
 }
